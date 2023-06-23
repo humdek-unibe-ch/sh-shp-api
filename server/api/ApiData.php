@@ -91,4 +91,23 @@ class ApiData extends ApiRequest
         }
         $this->return_response();
     }
+
+    /**
+     * Get the data for all users for the selected internal table
+     * GET protocol
+     * URL: /api/data/get_internal_all/table_name
+     * @param string $table_name
+     * The name of the internal table
+     */
+    public function get_internal_all($table_name)
+    {
+        $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+        } else {
+            $data = $this->user_input->get_data($id_table, '', false, FORM_INTERNAL);
+            $this->set_response($data);
+        }
+        $this->return_response();
+    }
 }

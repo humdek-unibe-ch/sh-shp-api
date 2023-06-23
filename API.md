@@ -120,3 +120,26 @@ The response will contain the data for the current user and the selected interna
   }
 }
 
+## Get All Internal Data
+
+Get the data for all users for the selected internal table.
+
+**URL**: `/api/data/get_internal_all/{table_name}`
+
+**Method**: GET
+
+**Parameters**:
+- `{table_name}` (string, required): The name of the internal table.
+
+**Response**:
+The response will contain the data for all users for the selected internal table.
+
+**Example**:
+```json
+{
+  "response": {
+    // Data for all users and internal table
+  }
+}
+
+
