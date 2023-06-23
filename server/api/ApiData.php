@@ -55,6 +55,25 @@ class ApiData extends ApiRequest
     }
 
     /**
+     * Get the data for all users for the selected external table
+     * GET protocol
+     * URL: /api/data/get_external_all/table_name
+     * @param string $table_name
+     * The name of the external table
+     */
+    public function get_external_all($table_name)
+    {
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+        } else {
+            $data = $this->user_input->get_data($id_table, '', false, FORM_EXTERNAL);
+            $this->set_response($data);
+        }
+        $this->return_response();
+    }
+
+    /**
      * Get the data for the current user for the selected internal table
      * GET protocol
      * URL: /api/data/get_internal/table_name
