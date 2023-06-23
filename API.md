@@ -1,3 +1,4 @@
+# Base 
 ## Ping Pong
 
 Ping pong function to check the API's availability.
@@ -49,3 +50,27 @@ Greet someone with a "Hallo" message using a POST request.
   "response": "Hallo {name}. My name is: {my_name}"
 }
 ```
+
+# Data
+
+## Get External Data
+
+Get the data for the current user for the selected external table.
+
+**URL**: `/api/data/get_external/{table_name}`
+
+**Method**: GET
+
+**Parameters**:
+- `{table_name}` (string, required): The name of the external table.
+
+**Response**:
+The response will contain the data for the current user and the selected external table.
+
+**Example**:
+```json
+{
+  "response": {
+    // Data for the current user and external table
+  }
+}

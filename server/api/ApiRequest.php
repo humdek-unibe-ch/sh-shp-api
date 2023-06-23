@@ -55,7 +55,7 @@ class ApiRequest extends BaseModel
     {
         parent::__construct($services);
         // Disable displaying errors
-        ini_set('display_errors', 0);
+        ini_set('display_errors', DEBUG);
     }
 
     /* Private Methods *********************************************************/
@@ -352,11 +352,11 @@ class ApiRequest extends BaseModel
     }
 
     /**
-     * Setter function for $response
+     * Init function for $response
      * @param object $response
      * The response message
      */
-    public function set_response($response)
+    public function init_response($response)
     {
         $this->response = $response;
     }
@@ -368,6 +368,54 @@ class ApiRequest extends BaseModel
      */
     public function get_response()
     {
-        return $this->response;
+        return $this->response['response'];
+    }
+
+    /**
+     * Getter function for status
+     * @return int
+     * the status code
+     */
+    public function get_status()
+    {
+        return $this->response['status'];
+    }
+
+    /**
+     * Getter function for message
+     * @return string
+     * the response object
+     */
+    public function get_message()
+    {
+        return $this->response['message'];
+    }
+
+    /**
+     * Setter function for response
+     * @param object $response
+     */
+    public function set_response($response)
+    {
+        $this->response['response'] = $response;
+    }
+
+    /**
+     * Setter function for status
+     * @return int $status
+     */
+    public function set_status($status)
+    {
+        $this->response['status'] = $status;
+        $this->response['message'] = $this->get_response_code_message($status);
+    }
+
+    /**
+     * Setter function for message
+     * @return string $message
+     */
+    public function set_message($message)
+    {
+        $this->response['message'] = $message;
     }
 }

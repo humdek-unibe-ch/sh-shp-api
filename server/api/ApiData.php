@@ -9,7 +9,7 @@ require_once __DIR__ . "/ApiRequest.php";
 /**
  * This class is used to prepare all API requests for Selfhelp
  */
-class ApiBase extends ApiRequest
+class ApiData extends ApiRequest
 {
 
     /* Private Properties *****************************************************/
@@ -36,42 +36,21 @@ class ApiBase extends ApiRequest
     /* Public Methods *********************************************************/
 
     /**
-     * Ping pong function
+     * Get the data for the current user for the selected external table
      * GET protocol
-     * URL: /api/base/ping
+     * URL: /api/data/get_external/table_name
+     * @param string $table_name
+     * The name of the external table
      */
-    public function ping()
+    public function get_external($table_name)
     {
-        $this->set_response("pong");
-        $this->return_response();
-    }
-
-    /**
-     * Hallo function
-     * GET protocol
-     * URL: /api/base/hallo/param1
-     * @param string $param1
-     * The name for greetings
-     */
-    public function hallo($param1)
-    {
-        $this->set_response("Hallo " . $param1);
-        $this->return_response();
-    }
-
-    /**
-     * Hallo post function
-     * POST protocol
-     * URL: /api/base/hallo_post/name
-     * POST: my_name
-     * @param string $name
-     * The name for greetings
-     * @param string $my_name
-     * my name return, it comes form a post body
-     */
-    public function hallo_post($name, $my_name)
-    {
-        $this->set_response("Hallo " . $name . ". My name is: ". $my_name);
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+        } else {
+            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], '', FORM_EXTERNAL);
+            $this->set_response($data);
+        }
         $this->return_response();
     }
 }

@@ -61,7 +61,7 @@ class ApiHooks extends BaseHooks
                 $method_name = $router->route['params']['method'];
                 $apiRequest = new ApiRequest($this->services);
                 $response = $apiRequest->authorizeUser();
-                $apiRequest->set_response($response);
+                $apiRequest->init_response($response);
                 if ($apiRequest->is_request_ok()) {
                     $params = [...$router->route['params']];
                     unset($params['class']);
