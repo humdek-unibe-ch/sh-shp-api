@@ -74,3 +74,26 @@ The response will contain the data for the current user and the selected externa
     // Data for the current user and external table
   }
 }
+
+## Get Internal Data
+
+Get the data for the current user for the selected internal table.
+
+**URL**: `/api/data/get_internal/{table_name}`
+
+**Method**: GET
+
+**Parameters**:
+- `{table_name}` (string, required): The name of the internal table.
+
+**Response**:
+The response will contain the data for the current user and the selected internal table.
+
+**Example**:
+```json
+{
+  "response": {
+    // Data for the current user and internal table
+  }
+}
+
