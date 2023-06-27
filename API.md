@@ -141,6 +141,7 @@ The response will contain the data for all users for the selected internal table
     // Data for all users and internal table
   }
 }
+```
 
 ## Import External Data
 
