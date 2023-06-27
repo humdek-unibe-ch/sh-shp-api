@@ -74,6 +74,7 @@ The response will contain the data for the current user and the selected externa
     // Data for the current user and external table
   }
 }
+```
 
 ## Get All External Data
 
@@ -96,6 +97,7 @@ The response will contain the data for all users for the selected external table
     // Data for all users and external table
   }
 }
+```
 
 
 ## Get Internal Data
@@ -119,6 +121,7 @@ The response will contain the data for the current user and the selected interna
     // Data for the current user and internal table
   }
 }
+```
 
 ## Get All Internal Data
 
