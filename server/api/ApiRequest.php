@@ -305,7 +305,17 @@ class ApiRequest extends BaseModel
             } else {
                 $reflection = new ReflectionMethod($instance, $method_name);
                 if ($reflection->isPublic()) {
-                    call_user_func_array(array($instance, $method_name), $params);
+                    $parameters = $reflection->getParameters();
+                    $passedParameters = array_keys($params);
+                    $invalidParameters = array_diff($passedParameters, array_column($parameters, 'name'));
+                    if (count($invalidParameters) > 0) {
+                        $this->set_status(HTTP_NOT_ACCEPTABLE);
+                        $this->set_error_message('Invalid parameters: ' . implode(', ', $invalidParameters));
+                        $this->return_response();
+                        return;
+                    } else {
+                        call_user_func_array(array($instance, $method_name), $params);
+                    }
                 } else {
                     $error_response = "Request '$class_name' method '$method_name'" . " is not public";
                 }
