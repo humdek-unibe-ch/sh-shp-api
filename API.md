@@ -198,5 +198,28 @@ The response will contain the result of the import operation.
 }
 ```
 
+## Create External Table
+
+Create a new external table using the POST protocol.
+
+**URL**: `/api/data/create_external_table/{table_name}`
+
+**Method**: POST
+
+**Parameters**:
+- `{table_name}` (string, required): The name of the external table that needs to be created.
+
+**Response**:
+- If the table is created successfully, the response will contain the result of the table creation operation.
+- If the table already exists, the response will indicate a conflict with an appropriate error message.
+
+**Example**:
+```json
+{
+  "response": {
+    // Result of the table creation operation
+  }
+}
+```
 
 

@@ -47,6 +47,7 @@ class ApiData extends ApiRequest
         $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], '', FORM_EXTERNAL);
             $this->set_response($data);
@@ -66,6 +67,7 @@ class ApiData extends ApiRequest
         $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data($id_table, ' LIMIT 0, 10000', false, FORM_EXTERNAL);
             $this->set_response($data);
@@ -85,6 +87,7 @@ class ApiData extends ApiRequest
         $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], '', FORM_INTERNAL);
             $this->set_response($data);
@@ -104,6 +107,7 @@ class ApiData extends ApiRequest
         $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data($id_table, '', false, FORM_INTERNAL);
             $this->set_response($data);
@@ -122,8 +126,14 @@ class ApiData extends ApiRequest
      */
     public function import_external($table_name, $data)
     {
-        $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
-        $this->set_response($res);
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
+        } else {
+            $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+            $this->set_response($res);
+        }
         $this->return_response();
     }
 
@@ -132,14 +142,42 @@ class ApiData extends ApiRequest
      * POST protocol
      * URL: /api/data/import_external_row/table_name
      * @param string $table_name
-     * The name of the internal table
+     * The name of the external table
      * @param object $data
      * The data object that we want to import. It is an associative array where each key is the name of the column
      */
     public function import_external_row($table_name, $data)
     {
-        $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
-        $this->set_response($res);
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
+        } else {
+            $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+            $this->set_response($res);
+        }
+        $this->return_response();
+    }
+
+    /**
+     * Create external table
+     * POST protocol
+     * URL: /api/data/create_external_table/table_name
+     * @param string $table_name
+     * The name of the external table that we want to create
+     */
+    public function create_external_table($table_name)
+    {
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if ($id_table) {
+            $this->set_status(HTTP_CONFLICT);
+            $this->set_error_message('The table already exists!');
+        } else {
+            $res = $this->db->insert("uploadTables", array(
+                "name" => $table_name
+            ));
+            $this->set_response($res);
+        }
         $this->return_response();
     }
 }

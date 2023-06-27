@@ -412,6 +412,15 @@ class ApiRequest extends BaseModel
     }
 
     /**
+     * Setter function for error message
+     * @param object $error_message
+     */
+    public function set_error_message($error_message)
+    {
+        $this->response['error_message'] = $error_message;
+    }
+
+    /**
      * Setter function for status
      * @return int $status
      */
