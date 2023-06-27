@@ -67,8 +67,10 @@ class ApiHooks extends BaseHooks
                     unset($params['class']);
                     unset($params['method']);
                     if (!empty($_POST)) {
-                        // $params = array_merge($_POST, $params);
                         $params['data'] = $_POST;
+                    }
+                    if (!empty($_GET)) {
+                        $params = array_merge($_GET, $params);
                     }
                     $inputData = file_get_contents('php://input');
                     $jsonData = json_decode($inputData, true);

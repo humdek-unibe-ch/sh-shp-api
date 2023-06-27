@@ -101,15 +101,18 @@ class ApiData extends ApiRequest
      * URL: /api/data/get_internal_all/table_name
      * @param string $table_name
      * The name of the internal table
+     * @param string $filter
+     * It comes from the $_GET parameters
+     * It is empty by default if it is not sent
      */
-    public function get_internal_all($table_name)
+    public function get_internal_all($table_name, $filter = '')
     {
         $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data($id_table, '', false, FORM_INTERNAL);
+            $data = $this->user_input->get_data($id_table, $filter, false, FORM_INTERNAL);
             $this->set_response($data);
         }
         $this->return_response();
