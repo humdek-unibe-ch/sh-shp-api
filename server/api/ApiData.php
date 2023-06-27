@@ -41,15 +41,18 @@ class ApiData extends ApiRequest
      * URL: /api/data/get_external/table_name
      * @param string $table_name
      * The name of the external table
+     * @param string $filter
+     * It comes from the $_GET parameters
+     * It is empty by default if it is not sent
      */
-    public function get_external($table_name)
+    public function get_external($table_name, $filter = '')
     {
         $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], '', FORM_EXTERNAL);
+            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter, FORM_EXTERNAL);
             $this->set_response($data);
         }
         $this->return_response();
@@ -61,15 +64,18 @@ class ApiData extends ApiRequest
      * URL: /api/data/get_external_all/table_name
      * @param string $table_name
      * The name of the external table
+     * @param string $filter
+     * It comes from the $_GET parameters
+     * It is empty by default if it is not sent
      */
-    public function get_external_all($table_name)
+    public function get_external_all($table_name, $filter = '')
     {
         $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data($id_table, ' LIMIT 0, 10000', false, FORM_EXTERNAL);
+            $data = $this->user_input->get_data($id_table, $filter, false, FORM_EXTERNAL);
             $this->set_response($data);
         }
         $this->return_response();
@@ -81,15 +87,18 @@ class ApiData extends ApiRequest
      * URL: /api/data/get_internal/table_name
      * @param string $table_name
      * The name of the internal table
+     * @param string $filter
+     * It comes from the $_GET parameters
+     * It is empty by default if it is not sent
      */
-    public function get_internal($table_name)
+    public function get_internal($table_name, $filter = '')
     {
         $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], '', FORM_INTERNAL);
+            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter, FORM_INTERNAL);
             $this->set_response($data);
         }
         $this->return_response();

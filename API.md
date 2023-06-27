@@ -63,6 +63,7 @@ Get the data for the current user for the selected external table.
 
 **Parameters**:
 - `{table_name}` (string, required): The name of the external table.
+- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent.
 
 **Response**:
 The response will contain the data for the current user and the selected external table.
@@ -86,6 +87,7 @@ Get the data for all users for the selected external table.
 
 **Parameters**:
 - `{table_name}` (string, required): The name of the external table.
+- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent.
 
 **Response**:
 The response will contain the data for all users for the selected external table.
@@ -110,6 +112,7 @@ Get the data for the current user for the selected internal table.
 
 **Parameters**:
 - `{table_name}` (string, required): The name of the internal table.
+- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent.
 
 **Response**:
 The response will contain the data for the current user and the selected internal table.
