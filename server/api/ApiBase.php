@@ -66,12 +66,16 @@ class ApiBase extends ApiRequest
      * POST: my_name
      * @param string $name
      * The name for greetings
-     * @param string $my_name
-     * my name return, it comes form a post body
+     * @param string $data
+     * The post data
      */
-    public function hallo_post($name, $my_name)
+    public function hallo_post($name, $data)
     {
-        $this->set_response("Hallo " . $name . ". My name is: ". $my_name);
+        if (isset($data['my_name'])) {
+            $this->set_response("Hallo " . $name . ". My name is: " . $data['my_name']);
+        } else {
+            $this->set_status(HTTP_NOT_FOUND);
+        }
         $this->return_response();
     }
 }

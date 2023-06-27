@@ -67,7 +67,7 @@ class ApiData extends ApiRequest
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
         } else {
-            $data = $this->user_input->get_data($id_table, '', false, FORM_EXTERNAL);
+            $data = $this->user_input->get_data($id_table, ' LIMIT 0, 10000', false, FORM_EXTERNAL);
             $this->set_response($data);
         }
         $this->return_response();
@@ -108,6 +108,38 @@ class ApiData extends ApiRequest
             $data = $this->user_input->get_data($id_table, '', false, FORM_INTERNAL);
             $this->set_response($data);
         }
+        $this->return_response();
+    }
+
+    /**
+     * Import external data
+     * POST protocol
+     * URL: /api/data/import_external/table_name
+     * @param string $table_name
+     * The name of the external table
+     * @param object $data
+     * The data object that we want to import. It is an array where each entry is the row that we will import
+     */
+    public function import_external($table_name, $data)
+    {
+        $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+        $this->set_response($res);
+        $this->return_response();
+    }
+
+    /**
+     * Import a row in external data
+     * POST protocol
+     * URL: /api/data/import_external_row/table_name
+     * @param string $table_name
+     * The name of the internal table
+     * @param object $data
+     * The data object that we want to import. It is an associative array where each key is the name of the column
+     */
+    public function import_external_row($table_name, $data)
+    {
+        $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+        $this->set_response($res);
         $this->return_response();
     }
 }

@@ -14,6 +14,8 @@ define('PAGE_ACTION_API', 'api');
 /**API Key variable */
 define('X_API_KEY', 'X-API-Key');
 
+define('transactionBy_by_api', 'by_api');
+
 /**API Status codes */
 define('HTTP_CONTINUE', 100);
 define('HTTP_SWITCHING_PROTOCOLS', 101);

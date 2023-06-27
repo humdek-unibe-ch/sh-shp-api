@@ -66,8 +66,14 @@ class ApiHooks extends BaseHooks
                     $params = [...$router->route['params']];
                     unset($params['class']);
                     unset($params['method']);
-                    if (isset($_POST)) {
-                        $params = array_merge($_POST, $params);
+                    if (!empty($_POST)) {
+                        // $params = array_merge($_POST, $params);
+                        $params['data'] = $_POST;
+                    }
+                    $inputData = file_get_contents('php://input');
+                    $jsonData = json_decode($inputData, true);
+                    if ($jsonData !== null && json_last_error() === JSON_ERROR_NONE) {
+                        $params['data'] = $jsonData;
                     }
                     $apiRequest->execute_api_request($class_name, $method_name, $response, $params);
                 } else {

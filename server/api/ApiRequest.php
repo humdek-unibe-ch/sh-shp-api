@@ -284,6 +284,17 @@ class ApiRequest extends BaseModel
         return $this->response['status'] === HTTP_OK;
     }
 
+    /**
+     * Execute API request
+     * @param string $class_name
+     * The class name
+     * @param string $method_name
+     * The method name
+     * @param object $response
+     * The response
+     * @param object $params
+     * The extra params
+     */
     public function execute_api_request($class_name, $method_name, $response, $params = array())
     {
         $error_response = null;
