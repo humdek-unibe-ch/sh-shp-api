@@ -4,13 +4,8 @@ VALUES ('api', 'v1.0.0');
 
 INSERT IGNORE INTO `groups` (`name`, `description`, `id_group_types`) VALUES ("API", 'Access to all API functionalities', (SELECT id FROM lookups WHERE type_code = 'groupTypes' AND lookup_code = 'db_role'));
 
--- add page generate_api_token
-INSERT IGNORE INTO `pages` (`keyword`, `url`, `protocol`, `id_actions`, `id_navigation_section`, `parent`, `is_headless`, `nav_position`, `footer_position`, `id_type`, `id_pageAccessTypes`) 
-VALUES ('apiSettings', '/api_settings/[v:mode]/[i:uid]?', 'GET|POST', (SELECT id FROM actions WHERE `name` = 'component' LIMIT 0,1), NULL, NULL, '0', NULL, NULL, (SELECT id FROM pageType WHERE `name` = 'intern' LIMIT 0,1), (SELECT id FROM lookups WHERE lookup_code = 'web'));
-INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_languages`, `content`) VALUES ((SELECT id FROM pages WHERE keyword = 'apiSettings'), get_field_id('title'), '0000000001', 'API Settings');
-INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_languages`, `content`) VALUES ((SELECT id FROM pages WHERE keyword = 'apiSettings'), get_field_id('title'), '0000000002', 'API Settings');
-INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "admin"), (SELECT id FROM pages WHERE keyword = 'apiSettings'), '1', '1', '1', '1');
-INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "API"), (SELECT id FROM pages WHERE keyword = 'apiSettings'), '1', '1', '1', '1');
+-- Add new internal style `apiToken`
+INSERT IGNORE INTO `styles` (`name`, `id_type`, id_group, description) VALUES ('apiToken', '1', (select id from styleGroup where `name` = 'intern' limit 1), 'Internal style used for API Token');
 
 -- create table users_api
 CREATE TABLE IF NOT EXISTS `users_api` (

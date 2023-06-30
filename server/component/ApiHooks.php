@@ -5,7 +5,6 @@
 ?>
 <?php
 require_once __DIR__ . "/../../../../component/BaseHooks.php";
-require_once __DIR__ . "/apiSettings/ApiSettingsComponent.php";
 require_once __DIR__ . "/../api/ApiRequest.php";
 
 /**
@@ -42,7 +41,7 @@ class ApiHooks extends BaseHooks
     {
         $uid = $this->router->get_param_by_name('uid');
         $uid = $uid ? $uid : $_SESSION['id_user']; //if the user is not set then we use the session user id
-        $apiComponent = new ApiSettingsComponent($this->services, array("uid" => $uid));
+        $apiComponent = new ApiTokenComponent($this->services, array("uid" => $uid));
         $apiComponent->output_content();
     }
 

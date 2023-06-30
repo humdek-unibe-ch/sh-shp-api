@@ -14,7 +14,12 @@ define('PAGE_ACTION_API', 'api');
 /**API Key variable */
 define('X_API_KEY', 'X-API-Key');
 
+/**Transaction codes */
 define('transactionBy_by_api', 'by_api');
+
+/* Modes */
+define('API_GENERATE_TOKEN', 'generate_token');
+define('API_REVOKE_TOKEN', 'revoke_token');
 
 /**API Status codes */
 define('HTTP_CONTINUE', 100);

@@ -4,11 +4,11 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 ?>
 <?php
-require_once __DIR__ . "/../../../../../component/BaseController.php";
+require_once __DIR__ . "/../../../../../../component/BaseController.php";
 /**
  * The controller class of the FotrockrsUser component.
  */
-class ApiSettingsController extends BaseController
+class ApiTokenController extends BaseController
 {
     /* Private Properties *****************************************************/
 
@@ -24,7 +24,8 @@ class ApiSettingsController extends BaseController
     public function __construct($model)
     {
         parent::__construct($model);
-        if ($this->model->get_mode() == UPDATE && $this->model->has_access_update()) {
+        $mode = isset($_POST['mode']) ? $_POST['mode'] : false;
+        if ($mode == API_GENERATE_TOKEN) {
             if ($this->model->generate_api_token()) {
                 $this->success = true;
                 $this->success_msgs[] = "An API token was generated!";
@@ -32,7 +33,7 @@ class ApiSettingsController extends BaseController
                 $this->fail = true;
                 $this->error_msgs[] = "Failed to generate an API token!";
             }
-        } else if ($this->model->get_mode() == DELETE && $this->model->has_access_delete()) {
+        } else if ($mode == API_REVOKE_TOKEN) {
             if ($this->model->revoke_api_token()) {
                 $this->success = true;
                 $this->success_msgs[] = "The API token was revoked successfully!";

@@ -4,25 +4,15 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 ?>
 <?php
-require_once __DIR__ . "/../../../../../component/user/UserModel.php";
+require_once __DIR__ . "/../../../../../../component/user/UserModel.php";
 /**
- * This class is used to prepare all data related to the ApiSettings component such
+ * This class is used to prepare all data related to the ApiToken component such
  * that the data can easily be displayed in the view of the component.
  */
-class ApiSettingsModel extends UserModel
+class ApiTokenModel extends UserModel
 {
 
     /* Private Properties *****************************************************/
-
-    /**
-     * Selected user id
-     */
-    private $uid;
-
-    /**
-     * Request mode
-     */
-    private $mode;
 
     /* Constructors ***********************************************************/
 
@@ -35,9 +25,8 @@ class ApiSettingsModel extends UserModel
      */
     public function __construct($services, $params)
     {
-        $this->uid = isset($params['uid']) ? $params['uid'] : $_SESSION['id_user'];
-        parent::__construct($services, $this->uid);
-        $this->mode = isset($params['mode']) ? $params['mode'] : "";
+        $uid = isset($params['uid']) ? $params['uid'] : null;
+        parent::__construct($services, $uid);
     }
 
     /* Private Methods *********************************************************/
@@ -73,16 +62,6 @@ class ApiSettingsModel extends UserModel
             $id_users = $this->get_uid();
         }
         return $this->fetch_api_user($id_users);
-    }
-
-    /**
-     * Get the request mode if set
-     * @return string
-     * the request mode
-     */
-    public function get_mode()
-    {
-        return $this->mode;
     }
 
     /**
