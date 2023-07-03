@@ -6,17 +6,14 @@
 <?php
 spl_autoload_register(function ($class_name) {
     if (strpos($class_name, "Api") === 0) {
-        $dir = __DIR__;
-        if ($handle = opendir($dir)) {
-            while (false !== ($file = readdir($handle))) {
-                if (is_file($dir . '/' . $file) && strpos($file, '.php') !== false) {
-                    if (strpos($file, $class_name . ".php") === 0) {
-                        require_once $dir . '/' . $file;
-                        break; // Stop the loop after finding and including the file
-                    }
-                }
+        $pluginDir = PLUGIN_SERVER_PATH;
+        // Search for matching files in plugin directories
+        $pluginPaths = glob($pluginDir . '/*/server/api/' . $class_name . '.php', GLOB_BRACE);
+        foreach ($pluginPaths as $pluginPath) {
+            if (file_exists($pluginPath)) {
+                require_once $pluginPath;
+                return;
             }
-            closedir($handle);
         }
     }
 });
