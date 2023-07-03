@@ -91,6 +91,7 @@ class ApiTokenView extends BaseView
         $user = $this->model->get_api_user();
         $generate_token = new BaseStyleComponent("form", array(
             "label" => "Generate API token",
+            "id" => "generate_token",
             "url" => '#',
             "confirmation_title" => 'API Token',
             "confirmation_cancel" => 'Cancel',
@@ -109,6 +110,7 @@ class ApiTokenView extends BaseView
         $revoke_token = new BaseStyleComponent("form", array(
             "label" => "Revoke API token",
             "url" => '#',
+            "id" => "revoke_token",
             "type" => "danger",
             "css" => "ml-auto",
             "confirmation_title" => 'API Token',
