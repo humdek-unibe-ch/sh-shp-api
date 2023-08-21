@@ -1,5 +1,5 @@
 -- add plugin entry in the plugin table
-INSERT IGNORE INTO plugins (name, version) 
+INSERT IGNORE INTO plugins (`name`, version) 
 VALUES ('api', 'v1.0.0');
 
 INSERT IGNORE INTO `groups` (`name`, `description`, `id_group_types`) VALUES ("API", 'Access to all API functionalities', (SELECT id FROM lookups WHERE type_code = 'groupTypes' AND lookup_code = 'db_role'));
@@ -121,6 +121,16 @@ INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_lang
 INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_languages`, `content`) VALUES ((SELECT id FROM pages WHERE keyword = @page_keyword), get_field_id('title'), '0000000002', 'Import External Data');
 INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "admin"), (SELECT id FROM pages WHERE keyword = @page_keyword), '0', '1', '0', '0');
 INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "API"), (SELECT id FROM pages WHERE keyword = @page_keyword), '0', '1', '0', '0');
+
+-- add page api_update_external
+SET @page_keyword = 'api_update_external_row';
+INSERT IGNORE INTO `pages` (`keyword`, `url`, `protocol`, `id_actions`, `id_navigation_section`, `parent`, `is_headless`, `nav_position`, `footer_position`, `id_type`, `id_pageAccessTypes`) 
+VALUES (@page_keyword, '/api/[data:class]/[update_external_row:method]/[v:table_name]/[i:row_id]', 'PUT', (SELECT id FROM actions WHERE `name` = 'api' LIMIT 0,1), NULL, NULL, '0', NULL, NULL, (SELECT id FROM pageType WHERE `name` = 'intern' LIMIT 0,1), (SELECT id FROM lookups WHERE lookup_code = 'api'));
+INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_languages`, `content`) VALUES ((SELECT id FROM pages WHERE keyword = @page_keyword), get_field_id('title'), '0000000001', 'Update External Row');
+INSERT IGNORE INTO `pages_fields_translation` (`id_pages`, `id_fields`, `id_languages`, `content`) VALUES ((SELECT id FROM pages WHERE keyword = @page_keyword), get_field_id('title'), '0000000002', 'Update External Row');
+INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "admin"), (SELECT id FROM pages WHERE keyword = @page_keyword), '0', '0', '1', '0');
+INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE `name` = "API"), (SELECT id FROM pages WHERE keyword = @page_keyword), '0', '0', '1', '0');
+
 
 -- add page api_create_external_table
 SET @page_keyword = 'api_create_external_table';

@@ -172,6 +172,38 @@ class ApiData extends ApiRequest
     }
 
     /**
+     * Update a row in external data
+     * PUT protocol
+     * URL: /api/data/update_external_row/table_name
+     * @param string $table_name
+     * The name of the external table
+     * @param string $row_id
+     * The row id witch will be updated
+     * @param object $data
+     * The data object that we want to import. It is an associative array where each key is the name of the column     
+     */
+    public function update_external_row($table_name, $row_id, $data )
+    {
+        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
+        } else {
+            if (!$row_id) {
+                $this->set_status(HTTP_NOT_FOUND);
+                $this->set_error_message('There is no data for which row should be updated!');
+            } else {
+                $update_row = [];
+                $update_row['record_id'] = $row_id;
+                $update_row['id_users'] = $_SESSION['id_user'];
+                $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data, $update_row);
+                $this->set_response($res);
+            }
+        }
+        $this->return_response();
+    }
+
+    /**
      * Create external table
      * POST protocol
      * URL: /api/data/create_external_table/table_name

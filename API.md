@@ -202,6 +202,33 @@ The response will contain the result of the import operation.
 }
 ```
 
+## Update External Row
+
+Update a row of data into the external table using the POST protocol.
+
+**URL**: `/api/data/update_external_row/{table_name}/{row_id}`
+
+**Method**: PUT
+
+**Parameters**:
+- `{table_name}` (string, required): The name of the external table.
+- `{row_id}` (integer, required): It comes from the $_GET parameters. The the row id that we want to update.
+
+**Request Body**:
+The request body should contain the data object that needs to be imported. It should be an associative array where each key represents the name of the column and the corresponding value represents the data for that column.
+
+**Response**:
+The response will contain the result of the import operation.
+
+**Example**:
+```json
+{
+  "response": {
+    // Result of the import operation
+  }
+}
+```
+
 ## Create External Table
 
 Create a new external table using the POST protocol.
