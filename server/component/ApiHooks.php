@@ -73,7 +73,7 @@ class ApiHooks extends BaseHooks
                     }
                     $inputData = file_get_contents('php://input');
                     parse_str($inputData, $jsonData);
-                    if ($jsonData !== null && json_last_error() === JSON_ERROR_NONE) {
+                    if ($jsonData !== null && json_last_error() === JSON_ERROR_NONE && count($jsonData) > 0) {
                         $params['data'] = $jsonData;
                     }
                     $apiRequest->execute_api_request($class_name, $method_name, $response, $params);
