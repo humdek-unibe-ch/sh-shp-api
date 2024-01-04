@@ -53,6 +53,15 @@ class ApiData extends ApiRequest
             $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter, FORM_EXTERNAL);
+            foreach ($data as $key => $value) {
+                if (isset($value['_json'])) {
+                    // if there is property _json, t is from survey js, make it json for easier work
+                    $data[$key]['_json'] =  json_decode($value['_json'], true);
+                } else {
+                    // if there is no _json property break the loop, no point to loop all data
+                    break;
+                }
+            }
             $this->set_response($data);
         }
         $this->return_response();
@@ -76,6 +85,15 @@ class ApiData extends ApiRequest
             $this->set_error_message('The table does not exists!');
         } else {
             $data = $this->user_input->get_data($id_table, $filter, false, FORM_EXTERNAL);
+            foreach ($data as $key => $value) {
+                if (isset($value['_json'])) {
+                    // if there is property _json, t is from survey js, make it json for easier work
+                    $data[$key]['_json'] =  json_decode($value['_json'], true);
+                } else {
+                    // if there is no _json property break the loop, no point to loop all data
+                    break;
+                }
+            }
             $this->set_response($data);
         }
         $this->return_response();
@@ -182,7 +200,7 @@ class ApiData extends ApiRequest
      * @param object $data
      * The data object that we want to import. It is an associative array where each key is the name of the column     
      */
-    public function update_external_row($table_name, $row_id, $data )
+    public function update_external_row($table_name, $row_id, $data)
     {
         $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
         if (!$id_table) {
