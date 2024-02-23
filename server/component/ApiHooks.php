@@ -91,5 +91,13 @@ class ApiHooks extends BaseHooks
             $this->execute_private_method($args);
         }
     }
+
+    /**
+     * Get the plugin version
+     */
+    public function get_plugin_db_version($plugin_name = 'lab-js')
+    {
+        return parent::get_plugin_db_version($plugin_name);
+    }
 }
 ?>
