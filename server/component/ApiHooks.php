@@ -95,7 +95,7 @@ class ApiHooks extends BaseHooks
     /**
      * Get the plugin version
      */
-    public function get_plugin_db_version($plugin_name = 'lab-js')
+    public function get_plugin_db_version($plugin_name = 'api')
     {
         return parent::get_plugin_db_version($plugin_name);
     }
