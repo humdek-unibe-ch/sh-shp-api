@@ -47,12 +47,12 @@ class ApiData extends ApiRequest
      */
     public function get_external($table_name, $filter = '')
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter, FORM_EXTERNAL);
+            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter);
             foreach ($data as $key => $value) {
                 if (isset($value['_json'])) {
                     // if there is property _json, t is from survey js, make it json for easier work
@@ -79,12 +79,12 @@ class ApiData extends ApiRequest
      */
     public function get_external_all($table_name, $filter = '')
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data($id_table, $filter, false, FORM_EXTERNAL);
+            $data = $this->user_input->get_data($id_table, $filter, false);
             foreach ($data as $key => $value) {
                 if (isset($value['_json'])) {
                     // if there is property _json, t is from survey js, make it json for easier work
@@ -111,12 +111,12 @@ class ApiData extends ApiRequest
      */
     public function get_internal($table_name, $filter = '')
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter, FORM_INTERNAL);
+            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter);
             $this->set_response($data);
         }
         $this->return_response();
@@ -134,12 +134,12 @@ class ApiData extends ApiRequest
      */
     public function get_internal_all($table_name, $filter = '')
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_INTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data($id_table, $filter, false, FORM_INTERNAL);
+            $data = $this->user_input->get_data($id_table, $filter, false);
             $this->set_response($data);
         }
         $this->return_response();
@@ -156,12 +156,12 @@ class ApiData extends ApiRequest
      */
     public function import_external($table_name, $data)
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+            $res = $this->user_input->save_data(transactionBy_by_user, $table_name, $data);
             $this->set_response($res);
         }
         $this->return_response();
@@ -178,12 +178,12 @@ class ApiData extends ApiRequest
      */
     public function import_external_row($table_name, $data)
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data);
+            $res = $this->user_input->save_data(transactionBy_by_user, $table_name, $data);
             $this->set_response($res);
         }
         $this->return_response();
@@ -202,7 +202,7 @@ class ApiData extends ApiRequest
      */
     public function update_external_row($table_name, $row_id, $data)
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
@@ -214,7 +214,7 @@ class ApiData extends ApiRequest
                 $update_row = [];
                 $update_row['record_id'] = $row_id;
                 $update_row['id_users'] = $_SESSION['id_user'];
-                $res = $this->user_input->save_external_data(transactionBy_by_user, $table_name, $data, $update_row);
+                $res = $this->user_input->save_data(transactionBy_by_user, $table_name, $data, $update_row);
                 $this->set_response($res);
             }
         }
@@ -230,12 +230,12 @@ class ApiData extends ApiRequest
      */
     public function create_external_table($table_name)
     {
-        $id_table = $this->user_input->get_form_id($table_name, FORM_EXTERNAL);
+        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
         if ($id_table) {
             $this->set_status(HTTP_CONFLICT);
             $this->set_error_message('The table already exists!');
         } else {
-            $res = $this->db->insert("uploadTables", array(
+            $res = $this->db->insert("dataTables", array(
                 "name" => $table_name
             ));
             $this->set_response($res);
