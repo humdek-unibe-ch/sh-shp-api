@@ -1,6 +1,9 @@
-# v1.0.3 - Requires SelfHelp v7.0.0+ (Not released)
+# v1.1.0 - Requires SelfHelp v7.0.0+ (Not released)
 ### New Features
  - add computability with `user_input` refactoring from SelfHelp v7.0.0 
+ - remove API calls:
+   - `api_get_internal`
+   - `api_get_internal_all`
 
 # v1.0.2
 ### New Features
