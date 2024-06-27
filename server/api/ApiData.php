@@ -102,52 +102,6 @@ class ApiData extends ApiRequest
     }
 
     /**
-     * Get the data for the current user for the selected internal table
-     * GET protocol
-     * URL: /api/data/get_internal/table_name
-     * @param string $table_name
-     * The name of the internal table
-     * @param string $filter
-     * It comes from the $_GET parameters
-     * It is empty by default if it is not sent
-     */
-    public function get_internal($table_name, $filter = '')
-    {
-        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
-        if (!$id_table) {
-            $this->set_status(HTTP_NOT_FOUND);
-            $this->set_error_message('The table does not exists!');
-        } else {
-            $data = $this->user_input->get_data_for_user($id_table, $_SESSION['id_user'], $filter);
-            $this->set_response($data);
-        }
-        $this->return_response();
-    }
-
-    /**
-     * Get the data for all users for the selected internal table
-     * GET protocol
-     * URL: /api/data/get_internal_all/table_name
-     * @param string $table_name
-     * The name of the internal table
-     * @param string $filter
-     * It comes from the $_GET parameters
-     * It is empty by default if it is not sent
-     */
-    public function get_internal_all($table_name, $filter = '')
-    {
-        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
-        if (!$id_table) {
-            $this->set_status(HTTP_NOT_FOUND);
-            $this->set_error_message('The table does not exists!');
-        } else {
-            $data = $this->user_input->get_data($id_table, $filter, false);
-            $this->set_response($data);
-        }
-        $this->return_response();
-    }
-
-    /**
      * Import external data
      * POST protocol
      * URL: /api/data/import_external/table_name
