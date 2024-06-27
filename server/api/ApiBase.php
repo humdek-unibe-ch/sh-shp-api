@@ -40,7 +40,7 @@ class ApiBase extends ApiRequest
      * GET protocol
      * URL: /api/base/ping
      */
-    public function ping()
+    public function GET_ping()
     {
         $this->set_response("pong");
         $this->return_response();
