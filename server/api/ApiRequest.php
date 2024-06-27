@@ -304,7 +304,11 @@ class ApiRequest extends BaseModel
                 if ($reflection->isPublic()) {
                     $parameters = $reflection->getParameters();
                     $passedParameters = array_keys($params);
-                    $invalidParameters = array_diff($passedParameters, array_column($parameters, 'name'));
+                    if (empty($passedParameters)) {
+                        $invalidParameters = $parameters;
+                    } else {
+                        $invalidParameters = array_diff($passedParameters, array_column($parameters, 'name'));
+                    }
                     if (count($invalidParameters) > 0) {
                         $this->set_status(HTTP_NOT_ACCEPTABLE);
                         $this->set_error_message('Invalid parameters: ' . implode(', ', $invalidParameters));

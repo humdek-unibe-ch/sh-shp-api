@@ -9,6 +9,7 @@
  - rename APIs
    - `api_get_external_all` to `api_select_data` with url: `/api/[data:class]/[table:method]/[:table_name]`
    - `api_get_external` to `api_select_my_data` with url: `/api/[my:user_mode]/[data:class]/[table:method]/[:table_name]`
+   - `api_create_external_table` to `api_insert_dataTable` with url: `/api/[data:class]/[table:method]`
 
 # v1.0.2
 ### New Features

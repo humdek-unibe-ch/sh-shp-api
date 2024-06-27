@@ -178,23 +178,32 @@ class ApiData extends ApiRequest
     }
 
     /**
-     * Create external table
+     * Create  dataTable
      * POST protocol
-     * URL: /api/data/create_external_table/table_name
-     * @param string $table_name
-     * The name of the external table that we want to create
+     * URL: /api/data/table     
+     * @param object $data
+     * The data object:
+     *  Requires:
+     *    - name
+     *    - displayName
      */
-    public function create_external_table($table_name)
+    public function POST_table($data)
     {
-        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
-        if ($id_table) {
+        if (!isset($data['name']) || !isset($data['displayName'])) {
             $this->set_status(HTTP_CONFLICT);
-            $this->set_error_message('The table already exists!');
+            $this->set_error_message('Name or displayName variable is not set!');
         } else {
-            $res = $this->db->insert("dataTables", array(
-                "name" => $table_name
-            ));
-            $this->set_response($res);
+            $id_table = $this->user_input->get_dataTable_id($data['name']);
+            if ($id_table) {
+                $this->set_status(HTTP_CONFLICT);
+                $this->set_error_message('The table already exists!');
+            } else {
+                $res = $this->db->insert("dataTables", array(
+                    "name" => $data['name'],
+                    "displayName" => $data['displayName']
+                ));
+                $this->set_response($res);
+            }            
         }
         $this->return_response();
     }

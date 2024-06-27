@@ -180,16 +180,17 @@ The response will contain the result of the import operation.
 }
 ```
 
-## Create External Table
+## Create DataTable
 
-Create a new external table using the POST protocol.
+Create a new dataTable using the POST protocol.
 
-**URL**: `/api/data/create_external_table/{table_name}`
+**URL**: `/api/data/table`
 
 **Method**: POST
 
 **Parameters**:
-- `{table_name}` (string, required): The name of the external table that needs to be created.
+- `{name}` (string, required): The name of the table to be created.
+- `displayName` (string, required): The display name of the table.
 
 **Response**:
 - If the table is created successfully, the response will contain the result of the table creation operation.
