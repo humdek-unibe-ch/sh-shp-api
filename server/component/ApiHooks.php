@@ -57,7 +57,7 @@ class ApiHooks extends BaseHooks
         if ($router->route && $router->route['target'] == PAGE_ACTION_API) {
             try {
                 $class_name = 'Api' . ucfirst($router->route['params']['class']);
-                $method_name = $router->route['params']['method'];
+                $method_name = $_SERVER['REQUEST_METHOD'] . '_' . $router->route['params']['method'];
                 $apiRequest = new ApiRequest($this->services);
                 $response = $apiRequest->authorizeUser();
                 $apiRequest->init_response($response);

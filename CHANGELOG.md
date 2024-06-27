@@ -4,6 +4,10 @@
  - remove API calls:
    - `api_get_internal`
    - `api_get_internal_all`
+   - `api_import_external_row`
+   - `api_hallo_post`
+ - rename APIs
+   - `api_get_external_all` to `api_select_data` with url: `/api/[data:class]/[table:method]/[:table_name]`
 
 # v1.0.2
 ### New Features

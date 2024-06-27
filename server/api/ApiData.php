@@ -68,18 +68,18 @@ class ApiData extends ApiRequest
     }
 
     /**
-     * Get the data for all users for the selected external table
+     * Get the data for all users for the selected dataTable
      * GET protocol
-     * URL: /api/data/get_external_all/table_name
+     * URL: /api/data/table/table_name
      * @param string $table_name
      * The name of the external table
      * @param string $filter
      * It comes from the $_GET parameters
      * It is empty by default if it is not sent
      */
-    public function get_external_all($table_name, $filter = '')
+    public function GET_table($table_name, $filter = '')
     {
-        $id_table = $this->user_input->get_dataTable_id_by_displayName($table_name);
+        $id_table = $this->user_input->get_dataTable_id($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');

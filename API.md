@@ -77,11 +77,11 @@ The response will contain the data for the current user and the selected externa
 }
 ```
 
-## Get All External Data
+## Get All Data for selected dataTable
 
-Get the data for all users for the selected external table.
+Get the data for all users for the selected  dataTable.
 
-**URL**: `/api/data/get_external_all/{table_name}`
+**URL**: `/api/data/table/{table_name}`
 
 **Method**: GET
 
