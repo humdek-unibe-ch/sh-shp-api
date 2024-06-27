@@ -75,16 +75,18 @@ class ApiData extends ApiRequest
      * The name of the external table
      * @param string $filter
      * It comes from the $_GET parameters
+     * @param null | "my" $user_mode
+     * If user mode is set to "my", it returns data only for the logged user
      * It is empty by default if it is not sent
      */
-    public function GET_table($table_name, $filter = '')
+    public function GET_table($table_name, $filter = '', $user_mode = null)
     {
         $id_table = $this->user_input->get_dataTable_id($table_name);
         if (!$id_table) {
             $this->set_status(HTTP_NOT_FOUND);
             $this->set_error_message('The table does not exists!');
         } else {
-            $data = $this->user_input->get_data($id_table, $filter, false);
+            $data = $this->user_input->get_data($id_table, $filter, $user_mode == 'my');
             foreach ($data as $key => $value) {
                 if (isset($value['_json'])) {
                     // if there is property _json, t is from survey js, make it json for easier work

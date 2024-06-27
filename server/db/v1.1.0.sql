@@ -11,7 +11,7 @@ SET keyword = 'api_select_data', url = '/api/[data:class]/[table:method]/[:table
 WHERE keyword = 'api_get_external_all';
 
 UPDATE pages
-SET keyword = 'api_select_my_data', url = '/api/[my:userMode]/[data:class]/[table:method]/[:table_name]'
+SET keyword = 'api_select_my_data', url = '/api/[my:user_mode]/[data:class]/[table:method]/[:table_name]'
 WHERE keyword = 'api_get_external';
 
 UPDATE pages

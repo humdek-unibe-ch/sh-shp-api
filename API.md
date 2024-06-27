@@ -53,17 +53,17 @@ Greet someone with a "Hallo" message using a POST request.
 
 # Data
 
-## Get External Data
+## Get my data for a selected dataTable
 
 Get the data for the current user for the selected external table.
 
-**URL**: `/api/data/get_external/{table_name}`
+**URL**: `/api/my/data/table/{table_name}`
 
 **Method**: GET
 
 **Parameters**:
 - `{table_name}` (string, required): The name of the external table.
-- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent.
+- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent. Ex: `AND record_id = 200`
 
 **Response**:
 The response will contain the data for the current user and the selected external table.
@@ -77,9 +77,9 @@ The response will contain the data for the current user and the selected externa
 }
 ```
 
-## Get All Data for selected dataTable
+## Get data for a selected dataTable for all users
 
-Get the data for all users for the selected  dataTable.
+Get the data for all users for the selected  dataTable. 
 
 **URL**: `/api/data/table/{table_name}`
 
@@ -87,7 +87,7 @@ Get the data for all users for the selected  dataTable.
 
 **Parameters**:
 - `{table_name}` (string, required): The name of the external table.
-- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent.
+- `filter` (string, optional): It comes from the $_GET parameters. It is empty by default if it is not sent. Ex: `AND record_id = 200`
 
 **Response**:
 The response will contain the data for all users for the selected external table.
