@@ -29,3 +29,9 @@ WHERE keyword = 'api_create_external_table';
 UPDATE pages
 SET url = '/api/[base:class]/[hallo:method]/[v:name]', protocol = 'GET|POST'
 WHERE keyword = 'api_hallo';
+
+UPDATE acl_groups acl
+INNER JOIN pages p ON acl.id_pages = p.id
+INNER JOIN `groups` g ON acl.id_groups = g.id
+SET acl.acl_insert = 1  -- or any other value you wish to set
+WHERE p.keyword = 'api_hallo' AND g.`name` IN ('admin', 'API');

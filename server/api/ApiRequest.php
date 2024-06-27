@@ -330,7 +330,7 @@ class ApiRequest extends BaseModel
 
     /**
      * Authorize the user based on the X_API_KEY that was sent
-     * @return object
+     * @return array
      * Return the response
      */
     public function authorizeUser()

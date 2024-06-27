@@ -18,17 +18,17 @@ Ping pong function to check the API's availability.
 
 Greet someone with a "Hallo" message.
 
-**URL**: `/api/base/hallo/{param1}`
+**URL**: `/api/base/hallo/{name}`
 
 **Method**: GET
 
 **Parameters**:
-- `{param1}` (string, required): The name for greetings.
+- `{name}` (string, required): The name for greetings.
 
 **Response**:
 ```json
 {
-  "response": "Hallo {param1}"
+  "response": "Hallo {name}"
 }
 ```
 
@@ -36,7 +36,7 @@ Greet someone with a "Hallo" message.
 
 Greet someone with a "Hallo" message using a POST request.
 
-**URL**: `/api/base/hallo_post/{name}`
+**URL**: `/api/base/hallo/{name}`
 
 **Method**: POST
 

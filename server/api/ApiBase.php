@@ -49,27 +49,27 @@ class ApiBase extends ApiRequest
     /**
      * Hallo function
      * GET protocol
-     * URL: /api/base/hallo/param1
-     * @param string $param1
+     * URL: /api/base/hallo/name
+     * @param string $name
      * The name for greetings
      */
-    public function hallo($param1)
+    public function GET_hallo($name)
     {
-        $this->set_response("Hallo " . $param1);
+        $this->set_response("Hallo " . $name);
         $this->return_response();
     }
 
     /**
      * Hallo post function
      * POST protocol
-     * URL: /api/base/hallo_post/name
+     * URL: /api/base/hallo/name
      * POST: my_name
      * @param string $name
      * The name for greetings
      * @param string $data
      * The post data
      */
-    public function hallo_post($name, $data)
+    public function POST_hallo($name, $data)
     {
         if (isset($data['my_name'])) {
             $this->set_response("Hallo " . $name . ". My name is: " . $data['my_name']);
