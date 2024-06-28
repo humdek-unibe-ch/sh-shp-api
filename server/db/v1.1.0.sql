@@ -19,7 +19,7 @@ SET keyword = 'api_insert_data', url = '/api/[data:class]/[table:method]/[:table
 WHERE keyword = 'api_import_external';
 
 UPDATE pages
-SET keyword = 'api_update_data', url = '/api/[data:class]/[table:method]/[:table_name]'
+SET keyword = 'api_update_data', url = '/api/[data:class]/[table:method]/[:table_name]/[i:record_id]'
 WHERE keyword = 'api_update_external_row';
 
 UPDATE pages

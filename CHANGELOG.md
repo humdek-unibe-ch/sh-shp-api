@@ -11,6 +11,7 @@
    - `api_get_external` to `api_select_my_data` with url: `/api/[my:user_mode]/[data:class]/[table:method]/[:table_name]`
    - `api_create_external_table` to `api_insert_dataTable` with url: `/api/[data:class]/[table:method]`
    - `api_import_external` and `api_import_external_row` with `api_insert_data` with url: `/api/[data:class]/[table:method]/[:table_name]`
+   - `api_update_external_row` to `api_update_data` with url: `/api/[data:class]/[table:method]/[:table_name]/[i:record_id]`
 
 # v1.0.2
 ### New Features

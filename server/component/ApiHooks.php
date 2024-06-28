@@ -73,12 +73,15 @@ class ApiHooks extends BaseHooks
                     }
                     $inputData = file_get_contents('php://input');
                     parse_str($inputData, $jsonData);
-                    $jsonData = json_decode($inputData, true);
+                    if (!$jsonData || !is_array($jsonData)) {
+                        // if not array try to parse it
+                        $jsonData = json_decode($inputData, true);
+                    }
                     if ($jsonData !== null && json_last_error() === JSON_ERROR_NONE && count($jsonData) > 0) {
                         $params['data'] = $jsonData;
                     }
                     foreach ($params as $key => $value) {
-                        if(!is_array($value)){
+                        if (!is_array($value)) {
                             // if not array try to urldecode
                             $params[$key] = urldecode($value);
                         }
