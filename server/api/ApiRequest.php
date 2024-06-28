@@ -303,11 +303,20 @@ class ApiRequest extends BaseModel
                 $reflection = new ReflectionMethod($instance, $method_name);
                 if ($reflection->isPublic()) {
                     $parameters = $reflection->getParameters();
+                    // Filter out parameters that have default values
+                    $mandatoryParameters = array_filter($parameters, function($param) {
+                        return !$param->isOptional();
+                    });
                     $passedParameters = array_keys($params);
                     if (empty($passedParameters)) {
                         $invalidParameters = $parameters;
                     } else {
-                        $invalidParameters = array_diff($passedParameters, array_column($parameters, 'name'));
+                        // Extract the names of the parameters
+                        $parameterNames = array_map(function ($param) {
+                            return $param->name;
+                        }, $mandatoryParameters);
+
+                        $invalidParameters = array_diff($parameterNames, $passedParameters);
                     }
                     if (count($invalidParameters) > 0) {
                         $this->set_status(HTTP_NOT_ACCEPTABLE);

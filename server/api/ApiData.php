@@ -32,6 +32,53 @@ class ApiData extends ApiRequest
 
     /* Private Methods *********************************************************/
 
+    /**
+     * Inserts a new data table.
+     *
+     * @param array $data The data to insert, including 'name' and 'displayName'.
+     * @return mixed The response after attempting to insert the data table.
+     */
+    private function api_insert_dataTable($data)
+    {
+        if (!isset($data['name']) || !isset($data['displayName'])) {
+            $this->set_status(HTTP_CONFLICT);
+            $this->set_error_message('Name or displayName variable is not set!');
+        } else {
+            $id_table = $this->user_input->get_dataTable_id($data['name']);
+            if ($id_table) {
+                $this->set_status(HTTP_CONFLICT);
+                $this->set_error_message('The table already exists!');
+            } else {
+                $res = $this->db->insert("dataTables", array(
+                    "name" => $data['name'],
+                    "displayName" => $data['displayName']
+                ));
+                $this->set_response($res);
+            }
+        }
+        return $this->return_response();
+    }
+
+    /**
+     * Inserts data into an existing data table.
+     *
+     * @param array $data The data to insert.
+     * @param string $table_name The name of the table where the data will be inserted.
+     * @return mixed The response after attempting to insert the data.
+     */
+    private function api_insert_data($data, $table_name)
+    {
+        $id_table = $this->user_input->get_dataTable_id($table_name);
+        if (!$id_table) {
+            $this->set_status(HTTP_NOT_FOUND);
+            $this->set_error_message('The table does not exists!');
+        } else {
+            $res = $this->user_input->save_data(transactionBy_by_user, $table_name, $data);
+            $this->set_response($res);
+        }
+        return $this->return_response();
+    }
+
 
     /* Public Methods *********************************************************/
 
@@ -178,33 +225,20 @@ class ApiData extends ApiRequest
     }
 
     /**
-     * Create  dataTable
-     * POST protocol
-     * URL: /api/data/table     
-     * @param object $data
-     * The data object:
-     *  Requires:
-     *    - name
-     *    - displayName
+     * Handles POST requests for table-related operations.
+     *
+     * @param array $data The data to process.
+     * @param string|null $table_name The name of the table (optional).
+     * @return mixed The response after processing the request.
      */
-    public function POST_table($data)
+    public function POST_table($data, $table_name = null)
     {
-        if (!isset($data['name']) || !isset($data['displayName'])) {
-            $this->set_status(HTTP_CONFLICT);
-            $this->set_error_message('Name or displayName variable is not set!');
+        if ($table_name) {
+            // insert data in dataTable
+            return $this->api_insert_data($data, $table_name);
         } else {
-            $id_table = $this->user_input->get_dataTable_id($data['name']);
-            if ($id_table) {
-                $this->set_status(HTTP_CONFLICT);
-                $this->set_error_message('The table already exists!');
-            } else {
-                $res = $this->db->insert("dataTables", array(
-                    "name" => $data['name'],
-                    "displayName" => $data['displayName']
-                ));
-                $this->set_response($res);
-            }            
+            // create a new dataTable
+            return $this->api_insert_dataTable($data);
         }
-        $this->return_response();
     }
 }

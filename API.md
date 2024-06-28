@@ -101,37 +101,11 @@ The response will contain the data for all users for the selected external table
 }
 ```
 
-## Import External Data
+## Import Data
 
-Import external data using the POST protocol.
+Import data using the POST protocol.
 
-**URL**: `/api/data/import_external/{table_name}`
-
-**Method**: POST
-
-**Parameters**:
-- `{table_name}` (string, required): The name of the external table.
-
-**Request Body**:
-The request body should contain the data object that needs to be imported. It should be an array where each entry represents a row to be imported.
-
-**Response**:
-The response will contain the result of the import operation.
-
-**Example**:
-```json
-{
-  "response": {
-    // Result of the import operation
-  }
-}
-```
-
-## Import External Row
-
-Import a row of data into the external table using the POST protocol.
-
-**URL**: `/api/data/import_external_row/{table_name}`
+**URL**: `/api/data/table/{table_name}`
 
 **Method**: POST
 
@@ -139,7 +113,9 @@ Import a row of data into the external table using the POST protocol.
 - `{table_name}` (string, required): The name of the external table.
 
 **Request Body**:
-The request body should contain the data object that needs to be imported. It should be an associative array where each key represents the name of the column and the corresponding value represents the data for that column.
+ - `application/x-www-form-urlencoded` - When using application/x-www-form-urlencoded, the body should contain key-value pairs representing the 
+ data to be inserted.
+ - `application/json` - When using application/json, the body should contain a JSON array of objects representing the data to be inserted.
 
 **Response**:
 The response will contain the result of the import operation.
