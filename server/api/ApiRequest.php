@@ -348,7 +348,7 @@ class ApiRequest extends BaseModel
      */
     public function authorizeUser()
     {
-        $headers = getallheaders();
+        $headers = array_change_key_case(getallheaders(), CASE_LOWER);;
         if (isset($headers[X_API_KEY])) {
             $requested_mode = $this->get_requested_mode();
             $api_key = $headers[X_API_KEY];

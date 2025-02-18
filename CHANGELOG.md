@@ -1,3 +1,11 @@
+# v1.1.1
+#### Fixed
+- Resolved issue where `X-API-Key` header was not correctly retrieved due to case sensitivity in Apache and PHP.
+- Updated `headers.php` to normalize headers using `array_change_key_case(getallheaders(), CASE_LOWER)`, ensuring case-insensitive access to request headers.
+
+#### Impact
+- API authentication now correctly recognizes `X-API-Key` regardless of capitalization.
+
 # v1.1.0 - Requires SelfHelp v7.0.0+
 ### New Features
  - add computability with `user_input` refactoring from SelfHelp v7.0.0 

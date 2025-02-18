@@ -12,7 +12,7 @@ define('PAGE_API_SETTINGS', 'apiSettings');
 define('PAGE_ACTION_API', 'api');
 
 /**API Key variable */
-define('X_API_KEY', 'X-API-Key');
+define('X_API_KEY', 'x-api-key');
 
 /**Transaction codes */
 define('transactionBy_by_api', 'by_api');

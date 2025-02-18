@@ -5,7 +5,7 @@
 ?>
 <div class="container my-3">
     <?php $this->output_alert(); ?>
-    <div class="jumbotron">
+    <div class="bg-light mb-4 rounded-2 py-5 px-3">
         <h1>API Token</h1>
         <p>In this page the users can generate or revoke their API token.</p>        
     </div>       
